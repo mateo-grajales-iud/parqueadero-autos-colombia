@@ -1,7 +1,7 @@
-<form>
-    <input type="text" placeholder="Placa">
-    <input type="date">
-    <input type="time">
-    <button type="submit">Entrada</button>
-    <button type="submit">Salida</button>
+<form [formGroup]="registroForm" >
+    <input type="text" id="placa" formControlName="placa" placeholder="Placa">
+    <input type="date" id="fecha" formControlName="fecha">
+    <input type="time" id="hora" formControlName="hora">
+    <button type="submit" id="entrada" (click)="onSubmit('ENTRADA')">Entrada</button>
+    <button type="submit" id="salida" (click)="onSubmit('SALIDA')">Salida</button>
 </form>
