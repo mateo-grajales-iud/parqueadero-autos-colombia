@@ -31,7 +31,7 @@ public class RegistroController {
 		} catch (Exception e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
-		return new ResponseEntity<>("Entrada registrada", HttpStatus.ACCEPTED);
+		return new ResponseEntity<>("Entrada registrada", HttpStatus.OK);
 	}
 	
 	@PostMapping("/salida")
@@ -41,7 +41,7 @@ public class RegistroController {
 		} catch (Exception e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
-		return new ResponseEntity<>("Salida registrada", HttpStatus.ACCEPTED);
+		return new ResponseEntity<>("Salida registrada", HttpStatus.OK);
 	}
 	
 	@GetMapping("/historial/{fecha}")

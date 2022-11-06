@@ -36,8 +36,9 @@ public class Registro {
 		
 	}
 
-	public Registro(String placa, Timestamp entrada, Timestamp salida) {
+	public Registro(long id, String placa, Timestamp entrada, Timestamp salida) {
 		super();
+		this.id = id;
 		this.placa = placa;
 		this.entrada = entrada;
 		this.salida = salida;
@@ -67,9 +68,17 @@ public class Registro {
 		this.salida = salida;
 	}
 
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
 	@Override
 	public String toString() {
-		return "Registro [placa=" + placa + ", entrada=" + entrada + ", salida=" + salida + "]";
+		return "Registro [id=" + id + ", placa=" + placa + ", entrada=" + entrada + ", salida=" + salida + "]";
 	}
 
 }

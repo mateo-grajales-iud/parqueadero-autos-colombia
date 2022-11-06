@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { RegistroService } from '../servicios/registro.service';
+import { FormBuilder, FormGroup} from '@angular/forms';
+import { Timestamp, timestamp } from 'rxjs';
 
 @Component({
   selector: 'app-historial',
@@ -7,9 +10,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HistorialComponent implements OnInit {
 
-  constructor() { }
+  registros: any = [];
+
+  buscarForm = this.formBuilder.group({
+    fecha: ''
+  })
+
+  constructor(private registroService: RegistroService, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
+  }
+
+  onSubmit():void{
+    console.log(this.registros);
+    this.registroService.buscarHistorial(this.buscarForm.value.fecha ?? '')
+      .subscribe(res => {
+        this.registros = res;
+        console.log(this.registros);
+      })
   }
 
 }

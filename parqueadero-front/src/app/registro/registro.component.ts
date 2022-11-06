@@ -43,6 +43,15 @@ export class RegistroComponent implements OnInit {
     else {
       data.salida= this.registroForm.value.fecha ?? '';
       data.salida += ' ' + (this.registroForm.value.hora ?? '') + ':00';
+      this.registroService.registrarSalida(data)
+        .subscribe({
+          next: (res) => {
+            console.log(res);
+          },
+          error: (e) => {
+            console.error(e);
+          }
+        })
     }
     console.warn(data);
   }

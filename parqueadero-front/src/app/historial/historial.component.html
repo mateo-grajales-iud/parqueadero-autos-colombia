@@ -1,5 +1,5 @@
-<form>
-    <input type="date">
+<form [formGroup]="buscarForm" (ngSubmit)="onSubmit()">
+    <input id='fecha' formControlName='fecha' type="date">
     <button type="submit">Consultar</button>
 </form>
 
@@ -8,5 +8,10 @@
         <th>PLACA</th>
         <th>ENTRADA</th>
         <th>SALIDA</th>
+    </tr>
+    <tr *ngFor="let registro of registros">
+        <td>{{ registro.placa }} </td>
+        <td>{{ registro.entrada }}</td>
+        <td>{{ registro.salida }}</td>
     </tr>
 </table>

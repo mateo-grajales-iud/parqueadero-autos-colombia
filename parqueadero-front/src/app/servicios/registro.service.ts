@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { HttpHeaders } from '@angular/common/http';
+
 
 const baseUrl= 'http://localhost:8080/api/registro/';
 
@@ -15,16 +17,19 @@ export class RegistroService {
    } 
   
   registrarEntrada(data: any):Observable<any>{
-    var headers = new Headers();
-    headers.append ('Content-Type','application/json');
     return this.http.post(baseUrl+'entrada',data, {
-      headers:headers
-      
-    });
+      headers: new HttpHeaders().set(
+        'Content-Type','application/json'), 
+        responseType: 'text' 
+      });
   }
 
   registrarSalida(data: any):Observable<any>{
-    return this.http.post(baseUrl+'salida',data);
+    return this.http.post(baseUrl+'salida',data, {
+      headers: new HttpHeaders().set(
+        'Content-Type','application/json'), 
+        responseType: 'text' 
+      });
   }
 
   buscarHistorial(data: any): Observable<any>{
