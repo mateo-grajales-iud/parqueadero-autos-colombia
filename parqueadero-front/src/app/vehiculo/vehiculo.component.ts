@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup} from '@angular/forms';
 import { UsuarioService } from '../servicios/usuario.service';
-
 import { VehiculoService } from '../servicios/vehiculo.service';
 
 @Component({

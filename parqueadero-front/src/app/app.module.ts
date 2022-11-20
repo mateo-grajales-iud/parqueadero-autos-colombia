@@ -13,6 +13,7 @@ import { HistorialComponent } from './historial/historial.component';
 import { RegistroService } from './servicios/registro.service';
 import { UsuarioService } from './servicios/usuario.service';
 import { VehiculoService } from './servicios/vehiculo.service';
+import { CeldaService } from './servicios/celda.service';
 import { UsuarioComponent } from './usuario/usuario.component';
 import { VehiculoComponent } from './vehiculo/vehiculo.component';
 import { CeldaComponent } from './celda/celda.component';

@@ -1,1 +1,39 @@
-<p>celda works!</p>
+<div>
+  <form [formGroup]="celdaForm" (ngSubmit)="onSubmit()">
+    <label>ID de la celda</label>
+    <input type="number" min="1" id="id" formControlName="id" placeholder="ID" required>
+    <button type="submit" id="crearUsuario">Crear celda</button>
+  </form>
+  <p id="error" *ngIf="errorCrear.length > 0">{{errorCrear}}</p>
+  <p id="exito" *ngIf="exitoCrear.length > 0">{{exitoCrear}}</p>
+</div>
+
+<div>
+    <form [formGroup]="asociarForm" (ngSubmit)="asociar()">
+      <label>ID de la celda</label>
+      <select id="id" formControlName="id" required>
+        <option *ngFor="let celda of celdas" [value]="celda.id">{{ celda.id  }}</option>
+      </select>
+      <select id="vehiculo" formControlName="vehiculo" required>
+        <option></option>
+        <option *ngFor="let vehiculo of vehiculos" [value]="vehiculo.placa">{{ vehiculo.placa  }}</option>
+      </select>
+      <button type="submit" id="crearUsuario">Asociar</button>
+    </form>
+    <p id="errorAsociar" *ngIf="errorAsociar.length > 0">{{errorAsociar}}</p>
+    <p id="exitoAsociar" *ngIf="exitoAsociar.length > 0">{{exitoAsociar}}</p>
+  </div>
+
+<div>
+  <table style="width:80% ;" *ngIf="celdas.length > 0">
+    <tr>
+      <th>ID</th>
+      <th>VEHICULO</th>
+    </tr>
+
+      <tr *ngFor="let celda of celdas">        
+        <td>{{ celda.id }} </td>
+        <td>{{ celda.vehiculo }}</td>
+      </tr>
+  </table>
+</div>

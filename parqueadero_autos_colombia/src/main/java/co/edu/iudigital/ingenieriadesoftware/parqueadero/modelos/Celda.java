@@ -1,5 +1,6 @@
 package co.edu.iudigital.ingenieriadesoftware.parqueadero.modelos;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -13,13 +14,12 @@ public class Celda {
 	@Id
 	private long id;
 	
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "fk_placa", nullable = true)
-	private Vehiculo vehiculo;
+	@Column(length = 6, nullable = true)
+	private String vehiculo;
 	
 	public Celda() {}
 
-	public Celda(long id, Vehiculo vehiculo) {
+	public Celda(long id, String vehiculo) {
 		this.id = id;
 		this.vehiculo = vehiculo;
 	}
@@ -32,11 +32,11 @@ public class Celda {
 		this.id = id;
 	}
 
-	public Vehiculo getVehiculo() {
+	public String getVehiculo() {
 		return vehiculo;
 	}
 
-	public void setPlaca(Vehiculo vehiculo) {
+	public void setPlaca(String vehiculo) {
 		this.vehiculo = vehiculo;
 	}	
 
