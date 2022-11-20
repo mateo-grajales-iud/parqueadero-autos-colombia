@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup} from '@angular/forms';
+import { UsuarioService } from '../servicios/usuario.service';
 
 import { VehiculoService } from '../servicios/vehiculo.service';
 
@@ -15,12 +16,62 @@ export class VehiculoComponent implements OnInit {
     modelo : "",
     color : "",
     placa : "",
-    tipo : ""
+    tipo : "",
+    dueno : ""
   })
 
-  constructor(private formBuilder: FormBuilder, private vehiculoService: VehiculoService) { }
+  errorCrear : String = "";
+  exitoCrear : String = "";
+
+  tiposVehiculo : any = [];
+  usuarios : any = [];
+  vehiculos : any = [];
+
+  constructor(private formBuilder: FormBuilder, private vehiculoService: VehiculoService, private usuarioService: UsuarioService) { 
+    this.getTiposVehiculo();
+    this.getUsuarios();
+    this.getVehiculos();
+  }
 
   ngOnInit(): void {
+  }
+
+  onSubmit(){
+    var data = this.crearVehiculoForm.value;
+    this.vehiculoService.crearVehiculo(data).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.exitoCrear = "Vehiculo creado!";
+        this.errorCrear = "";
+        this.getVehiculos();
+      },
+      error: (e) => {
+        var mensaje = JSON.parse(e.error);
+        this.exitoCrear = "";
+        this.errorCrear = mensaje.mensaje;
+      }
+    })
+  }
+
+  getTiposVehiculo(){
+    this.vehiculoService.obtenerTiposVehiculo()
+      .subscribe(res => {
+        this.tiposVehiculo = res     
+      });
+  }
+
+  getUsuarios(){
+    this.usuarioService.obtenerUsuarios()
+      .subscribe(res => {
+        this.usuarios = res;
+      })
+  }
+
+  getVehiculos(){
+    this.vehiculoService.obtenerVehiculos()
+    .subscribe(res => {
+      this.vehiculos = res     
+    });
   }
 
 }

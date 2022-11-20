@@ -24,18 +24,21 @@ public class Vehiculo {
 	@Column(length = 20, nullable = false)
 	private String color;
 	
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "tipo", nullable = false)
-	private TipoVehiculo tipo;
+	@Column(length = 6, nullable = false)
+	private String tipo;
+	
+	@Column(length = 10, nullable = false)
+	private String dueno;
 	
 	public Vehiculo() {}
 
-	public Vehiculo(String placa, String marca, String modelo, String color, TipoVehiculo tipo) {
+	public Vehiculo(String placa, String marca, String modelo, String color, String tipo, String dueno) {
 		this.placa = placa;
 		this.marca = marca;
 		this.modelo = modelo;
 		this.color = color;
 		this.tipo = tipo;
+		this.dueno = dueno;
 	}
 
 	public String getPlaca() {
@@ -70,12 +73,20 @@ public class Vehiculo {
 		this.color = color;
 	}
 
-	public TipoVehiculo getTipo() {
+	public String getTipo() {
 		return tipo;
 	}
 
-	public void setTipo(TipoVehiculo tipo) {
+	public void setTipo(String tipo) {
 		this.tipo = tipo;
+	}
+
+	public String getDueno() {
+		return dueno;
+	}
+
+	public void setDueno(String dueno) {
+		this.dueno = dueno;
 	}
 
 }
