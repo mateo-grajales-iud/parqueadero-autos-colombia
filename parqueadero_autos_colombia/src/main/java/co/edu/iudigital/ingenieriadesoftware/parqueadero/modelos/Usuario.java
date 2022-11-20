@@ -23,9 +23,8 @@ public class Usuario {
 	@Column(length = 100, nullable = false)
 	private String apellidos;
 	
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "tipo", nullable = false)
-	private TipoDocumento tipoDocumento;
+	@Column(length = 2, nullable = false)
+	private String tipoDocumento;
 	
 	@Column(length = 10, nullable = false)
 	private String numeroDocumento;
@@ -38,7 +37,7 @@ public class Usuario {
 	
 	public Usuario() {}
 
-	public Usuario(String id, String nombres, String apellidos, TipoDocumento tipoDocumento, String numeroDocumento,
+	public Usuario(String id, String nombres, String apellidos, String tipoDocumento, String numeroDocumento,
 			String correoElectronico, String telefono) {
 		this.id = id;
 		this.nombres = nombres;
@@ -73,11 +72,11 @@ public class Usuario {
 		this.apellidos = apellidos;
 	}
 
-	public TipoDocumento getTipoDocumento() {
+	public String getTipoDocumento() {
 		return tipoDocumento;
 	}
 
-	public void setTipoDocumento(TipoDocumento tipoDocumento) {
+	public void setTipoDocumento(String tipoDocumento) {
 		this.tipoDocumento = tipoDocumento;
 	}
 
@@ -103,6 +102,13 @@ public class Usuario {
 
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
+	}
+
+	@Override
+	public String toString() {
+		return "Usuario [id=" + id + ", nombres=" + nombres + ", apellidos=" + apellidos + ", tipoDocumento="
+				+ tipoDocumento + ", numeroDocumento=" + numeroDocumento + ", correoElectronico=" + correoElectronico
+				+ ", telefono=" + telefono + "]";
 	}
 
 }

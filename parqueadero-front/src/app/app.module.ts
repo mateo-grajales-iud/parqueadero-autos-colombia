@@ -11,7 +11,11 @@ import { BarraInferiorComponent } from './barra-inferior/barra-inferior.componen
 import { HistorialComponent } from './historial/historial.component';
 
 import { RegistroService } from './servicios/registro.service';
+import { UsuarioService } from './servicios/usuario.service';
+import { VehiculoService } from './servicios/vehiculo.service';
 import { UsuarioComponent } from './usuario/usuario.component';
+import { VehiculoComponent } from './vehiculo/vehiculo.component';
+import { CeldaComponent } from './celda/celda.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +24,9 @@ import { UsuarioComponent } from './usuario/usuario.component';
     BarraSuperiorComponent,
     BarraInferiorComponent,
     HistorialComponent,
-    UsuarioComponent
+    UsuarioComponent,
+    VehiculoComponent,
+    CeldaComponent
   ],
   imports: [
     BrowserModule,

@@ -1,1 +1,37 @@
-<p>usuario works!</p>
+<div>
+  <form [formGroup]="formCrearUsuario" (ngSubmit)="onSubmit()">
+    <input type="text" id="nombre" formControlName="nombre" placeholder="Nombre" required>
+    <input type="apellidos" id="apellidos" formControlName="apellidos" placeholder="Apellidos" required>
+    <select id="tipoIdentificacion" formControlName="tipoIdentificacion" required>
+      <option *ngFor="let tipo of tiposDoc" [value]="tipo.tipo">{{ tipo.descripcion }}</option>
+    </select>
+    <input type="text" id="numIdentificacion" formControlName="numIdentificacion" placeholder="Núm de identificación"
+      required>
+    <input type="email" id="correo" formControlName="correo" placeholder="Correo electronico" required>
+    <input type="telefono" id="telefono" formControlName="telefono" placeholder="Telefono" required>
+    <button type="submit" id="crearUsuario">Crear usuario</button>
+  </form>
+  <p id="error" *ngIf="error.length > 0">{{error}}</p>
+  <p id="exito" *ngIf="exito.length > 0">{{exito}}</p>
+</div>
+
+<div>
+  <table style="width:80% ;" *ngIf="usuarios.length > 0">
+    <tr>
+      <th>NOMBRE</th>
+      <th>APELLIDOS</th>
+      <th>TIPO DE IDENTIFICACION</th>
+      <th>IDENTIFICACION</th>
+      <th>CORREO</th>
+      <th>TELEFONO</th>
+    </tr>
+    <tr *ngFor="let usuario of usuarios">
+      <td>{{ usuario.nombres }} </td>
+      <td>{{ usuario.apellidos }}</td>
+      <td>{{ usuario.tipoDocumento }}</td>
+      <td>{{ usuario.numeroDocumento }}</td>
+      <td>{{ usuario.correoElectronico }}</td>
+      <td>{{ usuario.telefono }}</td>
+    </tr>
+  </table>
+</div>
