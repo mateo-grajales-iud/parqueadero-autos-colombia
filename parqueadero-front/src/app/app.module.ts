@@ -11,6 +11,7 @@ import { BarraInferiorComponent } from './barra-inferior/barra-inferior.componen
 import { HistorialComponent } from './historial/historial.component';
 
 import { RegistroService } from './servicios/registro.service';
+import { UsuarioComponent } from './usuario/usuario.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { RegistroService } from './servicios/registro.service';
     RegistroComponent,
     BarraSuperiorComponent,
     BarraInferiorComponent,
-    HistorialComponent
+    HistorialComponent,
+    UsuarioComponent
   ],
   imports: [
     BrowserModule,
