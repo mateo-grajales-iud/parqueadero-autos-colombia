@@ -15,6 +15,7 @@
         <option *ngFor="let celda of celdas" [value]="celda.id">{{ celda.id  }}</option>
       </select>
       <select id="vehiculo" formControlName="vehiculo" required>
+        <option value="" disabled selected hidden>Vehículo</option>
         <option></option>
         <option *ngFor="let vehiculo of vehiculos" [value]="vehiculo.placa">{{ vehiculo.placa  }}</option>
       </select>

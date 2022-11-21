@@ -3,6 +3,7 @@
     <input type="text" id="nombre" formControlName="nombre" placeholder="Nombre" required>
     <input type="apellidos" id="apellidos" formControlName="apellidos" placeholder="Apellidos" required>
     <select id="tipoIdentificacion" formControlName="tipoIdentificacion" required>
+      <option value="" disabled selected hidden>Tipo de identificación</option>
       <option *ngFor="let tipo of tiposDoc" [value]="tipo.tipo">{{ tipo.descripcion }}</option>
     </select>
     <input type="text" id="numIdentificacion" formControlName="numIdentificacion" placeholder="Núm de identificación"

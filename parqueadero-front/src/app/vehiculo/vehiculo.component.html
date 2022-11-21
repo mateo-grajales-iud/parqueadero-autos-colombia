@@ -2,12 +2,14 @@
   <form [formGroup]="crearVehiculoForm" (ngSubmit)="onSubmit()">
     <input type="text" id="placa" formControlName="placa" placeholder="Placa" required>
     <select id="dueno" formControlName="dueno" required>
+      <option value="" disabled selected hidden>Propietrio</option>
         <option *ngFor="let usuario of usuarios" [value]="usuario.id">{{ usuario.id  }}</option>
       </select>
     <input type="text" id="marca" formControlName="marca" placeholder="Marca" required>
     <input type="text" id="modelo" formControlName="modelo" placeholder="Modelo" required>
     <input type="text" id="color" formControlName="color" placeholder="Color" required>
     <select id="tipo" formControlName="tipo" required>
+      <option value="" disabled selected hidden>Tipo de vehículo</option>
       <option *ngFor="let tipo of tiposVehiculo" [value]="tipo.tipo">{{ tipo.descripcion }}</option>
     </select>
     <button type="submit" id="crearUsuario">Crear vehiculo</button>
