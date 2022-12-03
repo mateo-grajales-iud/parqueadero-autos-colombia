@@ -1,40 +1,60 @@
 <div>
   <form [formGroup]="crearVehiculoForm" (ngSubmit)="onSubmit()">
     <input type="text" id="placa" formControlName="placa" placeholder="Placa" required>
+    <div class="error" *ngIf="crearVehiculoForm.controls['placa'].invalid">
+      Se requiere la placa
+    </div>
     <select id="dueno" formControlName="dueno" required>
-      <option value="" disabled selected hidden>Propietrio</option>
-        <option *ngFor="let usuario of usuarios" [value]="usuario.id">{{ usuario.id  }}</option>
-      </select>
+      <option value="" disabled selected hidden>Propietario</option>
+      <option *ngFor="let usuario of usuarios" [value]="usuario.id">{{ usuario.id  }}</option>
+    </select>
+    <div class="error" *ngIf="crearVehiculoForm.controls['dueno'].invalid">
+      Se requiere el dueño
+    </div>
     <input type="text" id="marca" formControlName="marca" placeholder="Marca" required>
+    <div class="error" *ngIf="crearVehiculoForm.controls['marca'].invalid">
+      Se requiere la marca
+    </div>
     <input type="text" id="modelo" formControlName="modelo" placeholder="Modelo" required>
+    <div class="error" *ngIf="crearVehiculoForm.controls['modelo'].invalid">
+      Se requiere el modelo
+    </div>
     <input type="text" id="color" formControlName="color" placeholder="Color" required>
+    <div class="error" *ngIf="crearVehiculoForm.controls['color'].invalid">
+      Se requiere el color
+    </div>
     <select id="tipo" formControlName="tipo" required>
       <option value="" disabled selected hidden>Tipo de vehículo</option>
       <option *ngFor="let tipo of tiposVehiculo" [value]="tipo.tipo">{{ tipo.descripcion }}</option>
     </select>
-    <button type="submit" id="crearUsuario">Crear vehiculo</button>
+    <div class="error" *ngIf="crearVehiculoForm.controls['tipo'].invalid">
+      Se requiere el tipo
+    </div>
+    <button type="submit" id="crearUsuario" [disabled]="!crearVehiculoForm.valid">Crear vehiculo</button>
   </form>
-  <p id="error" *ngIf="errorCrear.length > 0">{{errorCrear}}</p>
-  <p id="exito" *ngIf="exitoCrear.length > 0">{{exitoCrear}}</p>
+  <p class="error" id="error" *ngIf="errorCrear.length > 0">{{errorCrear}}</p>
+  <p class="exito"id="exito" *ngIf="exitoCrear.length > 0">{{exitoCrear}}</p>
 </div>
 
+<br>
+
 <div>
-    <table style="width:80% ;" *ngIf="vehiculos.length > 0">
-      <tr>
-        <th>PLACA</th>
-        <th>DUEÑO</th>
-        <th>MARCA</th>
-        <th>MODELO</th>
-        <th>COLOR</th>
-        <th>TIPO</th>
-      </tr>
-      <tr *ngFor="let vehiculo of vehiculos">
-        <td>{{ vehiculo.placa }} </td>
-        <td>{{ vehiculo.dueno }}</td>
-        <td>{{ vehiculo.marca }}</td>
-        <td>{{ vehiculo.modelo }}</td>
-        <td>{{ vehiculo.color }}</td>
-        <td>{{ vehiculo.tipo }}</td>
-      </tr>
-    </table>
-  </div>
+  <table style="width:80% ;" *ngIf="vehiculos.length > 0">
+    <tr>
+      <th>PLACA</th>
+      <th>DUEÑO</th>
+      <th>MARCA</th>
+      <th>MODELO</th>
+      <th>COLOR</th>
+      <th>TIPO</th>
+    </tr>
+    <tr *ngFor="let vehiculo of vehiculos">
+      <td>{{ vehiculo.placa }} </td>
+      <td>{{ vehiculo.dueno }}</td>
+      <td>{{ vehiculo.marca }}</td>
+      <td>{{ vehiculo.modelo }}</td>
+      <td>{{ vehiculo.color }}</td>
+      <td>{{ vehiculo.tipo }}</td>
+    </tr>
+  </table>
+</div>

@@ -17,6 +17,7 @@ import { CeldaService } from './servicios/celda.service';
 import { UsuarioComponent } from './usuario/usuario.component';
 import { VehiculoComponent } from './vehiculo/vehiculo.component';
 import { CeldaComponent } from './celda/celda.component';
+import { PagosComponent } from './pagos/pagos.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { CeldaComponent } from './celda/celda.component';
     HistorialComponent,
     UsuarioComponent,
     VehiculoComponent,
-    CeldaComponent
+    CeldaComponent,
+    PagosComponent
   ],
   imports: [
     BrowserModule,

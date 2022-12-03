@@ -1,0 +1,39 @@
+<form>
+    <button type="submit" (click)="onSubmitFacturar()" id="generarFactura" name="generarFactura">Generar cobros del mes</button>
+</form>
+
+<br>
+
+<div>
+    <form [formGroup]="pagarForm" (ngSubmit)="pagar()">
+      <label>ID de la celda</label>
+      <select id="id" formControlName="id" required>
+        <option *ngFor="let pago of pagos" [value]="pago.id">{{ pago.id }}</option>
+      </select>
+      <div class="error" *ngIf="pagarForm.controls['id'].invalid">
+        ID invalido
+      </div>
+      <button type="submit" id="crearUsuario" [disabled]="!pagarForm.valid">Pagar</button>
+    </form>
+    <p class="error" id="error" *ngIf="error.length > 0">{{error}}</p>
+    <p class="exito" id="exito" *ngIf="exito.length > 0">{{exito}}</p>
+  </div>
+
+<br>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>PLACA</th>
+        <th>FECHA</th>
+        <th>ESTADO</th>
+        <th>VALOR</th>
+    </tr>
+    <tr *ngFor="let pago of pagos">
+        <td>{{ pago.id }}</td>
+        <td>{{ pago.placa }}</td>
+        <td>{{ pago.fecha }}</td>
+        <td>{{ pago.estado == "0" ? "PENDIENTE" : (pago.estado == "1" ? "PAGO" : "DESCONOCIDO") }}</td>
+        <td>{{ "$" + pago.valor.toFixed() }}</td>
+    </tr>
+</table>

@@ -10,4 +10,5 @@ public interface VehiculoRepositorio extends CrudRepository<Vehiculo, String>{
 	
 	public List<Vehiculo> findAll();
 
+
 }

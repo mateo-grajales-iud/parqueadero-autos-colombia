@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 import { UsuarioService } from '../servicios/usuario.service';
 
@@ -12,12 +12,12 @@ export class UsuarioComponent implements OnInit {
 
   formCrearUsuario = this.formBuilder.group(
     {
-      nombre: '',
-      apellidos: '',
-      tipoIdentificacion: '',
-      numIdentificacion: '', 
-      correo: '',
-      telefono: ''
+      nombre: ['', Validators.required],
+      apellidos: ['', Validators.required],
+      tipoIdentificacion: ['', Validators.required],
+      numIdentificacion: ['', Validators.required], 
+      correo: ['', Validators.required],
+      telefono: ['', Validators.required]
     }
   )
 
@@ -66,6 +66,7 @@ export class UsuarioComponent implements OnInit {
         this.exito = "Usuario creado!";
         this.error = "";
         this.getUsuarios();
+        this.formCrearUsuario.reset();
       },
       error: (e) => {
         var mensaje = JSON.parse(e.error);

@@ -28,6 +28,9 @@ public class VehiculoController {
 	@Autowired
 	private VehiculoRepositorio vr;
 	
+	@Autowired
+	private VehiculoComponent vc;
+	
 	@GetMapping("tiposVehiculo")
 	public List<TipoVehiculo> getTiposVehiculo(){
 		return tvr.findAll();
@@ -42,7 +45,7 @@ public class VehiculoController {
 	public ResponseEntity<String> registrarEntrada(@RequestBody Vehiculo v) {
 		Optional<Vehiculo> v2 = vr.findById(v.getPlaca());
 		if (v2.isEmpty()) {
-			try {
+			try {				
 				vr.save(v);
 			}catch (Exception e) {
 				return new ResponseEntity<String>("{ \"mensaje\" : \"" + e.getMessage() + "\" }", HttpStatus.INTERNAL_SERVER_ERROR);

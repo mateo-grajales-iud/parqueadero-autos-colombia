@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { VehiculoService } from '../servicios/vehiculo.service';
 import { CeldaService } from '../servicios/celda.service';
 
@@ -11,13 +11,12 @@ import { CeldaService } from '../servicios/celda.service';
 export class CeldaComponent implements OnInit {
 
 celdaForm = this.formBuilder.group({
-  id: 0,
-  vehiculo : "",
+  id: [0, [Validators.required, Validators.min(1)]]
 })
 
 asociarForm = this.formBuilder.group({
-  id: 0,
-  vehiculo : "",
+  id: [0, [Validators.required, Validators.min(1)]],
+  vehiculo : ["", Validators.required],
 })
 
 celdas : any = [];
@@ -69,7 +68,9 @@ exitoAsociar = "";
 
   asociar(){    
     var data = this.asociarForm.value;
-    console.log(data);
+    if (data.vehiculo == " "){
+      data.vehiculo = "";
+    }
     this.celdaService.asociarCelda(data).subscribe({
       next: (res) => {
         console.log(res);

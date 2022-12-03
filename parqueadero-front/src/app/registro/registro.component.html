@@ -1,7 +1,21 @@
 <form [formGroup]="registroForm" >
-    <input type="text" id="placa" formControlName="placa" placeholder="Placa">
+    <select id="placa" formControlName="placa" required>
+        <option value="" disabled selected hidden>Placa</option>
+        <option *ngFor="let vehiculo of vehiculos" [value]="vehiculo.placa">{{ vehiculo.placa }}</option>
+      </select>
+    <div class="error" *ngIf="registroForm.controls['placa'].invalid">
+        Se requiere la placa
+    </div>
     <input type="date" id="fecha" formControlName="fecha">
+    <div class="error" *ngIf="registroForm.controls['fecha'].invalid">
+        Se requiere la fecha
+    </div>
     <input type="time" id="hora" formControlName="hora">
-    <button type="submit" id="entrada" (click)="onSubmit('ENTRADA')">Entrada</button>
-    <button type="submit" id="salida" (click)="onSubmit('SALIDA')">Salida</button>
+    <div class="error" *ngIf="registroForm.controls['hora'].invalid">
+        Se requiere la hora
+    </div>
+    <button type="submit" id="entrada" (click)="registroForm.valid ? onSubmit('ENTRADA') : null" [disabled]="!registroForm.valid">Entrada</button>
+    <button type="submit" id="salida" (click)="registroForm.valid ? onSubmit('SALIDA') : null" [disabled]="!registroForm.valid">Salida</button>
 </form>
+<div class="error" id="error" *ngIf="error.length > 0">{{error}}</div>
+<div class="exito" id="exito" *ngIf="exito.length > 0">{{exito}}</div>

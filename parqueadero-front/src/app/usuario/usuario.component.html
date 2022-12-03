@@ -1,20 +1,40 @@
 <div>
   <form [formGroup]="formCrearUsuario" (ngSubmit)="onSubmit()">
-    <input type="text" id="nombre" formControlName="nombre" placeholder="Nombre" required>
+    <input type="text" id="nombre" formControlName="nombre" placeholder="Nombre">
+    <div class="error" *ngIf="formCrearUsuario.controls['nombre'].invalid">
+      Se requiere el nombre
+    </div>
     <input type="apellidos" id="apellidos" formControlName="apellidos" placeholder="Apellidos" required>
+    <div class="error" *ngIf="formCrearUsuario.controls['apellidos'].invalid">
+      Se requiere los apellidos
+    </div>
     <select id="tipoIdentificacion" formControlName="tipoIdentificacion" required>
       <option value="" disabled selected hidden>Tipo de identificación</option>
       <option *ngFor="let tipo of tiposDoc" [value]="tipo.tipo">{{ tipo.descripcion }}</option>
     </select>
+    <div class="error" *ngIf="formCrearUsuario.controls['tipoIdentificacion'].invalid">
+      Se requiere el tipo de identificación
+    </div>
     <input type="text" id="numIdentificacion" formControlName="numIdentificacion" placeholder="Núm de identificación"
       required>
+      <div class="error" *ngIf="formCrearUsuario.controls['numIdentificacion'].invalid">
+        Se requiere el número de identificación
+      </div>
     <input type="email" id="correo" formControlName="correo" placeholder="Correo electronico" required>
+    <div class="error" *ngIf="formCrearUsuario.controls['correo'].invalid">
+      Se requiere el correo
+    </div>
     <input type="telefono" id="telefono" formControlName="telefono" placeholder="Telefono" required>
-    <button type="submit" id="crearUsuario">Crear usuario</button>
+    <div class="error" *ngIf="formCrearUsuario.controls['telefono'].invalid">
+      Se requiere el telefono
+    </div>
+    <button type="submit" id="crearUsuario" [disabled]="!formCrearUsuario.valid">Crear usuario</button>
   </form>
-  <p id="error" *ngIf="error.length > 0">{{error}}</p>
-  <p id="exito" *ngIf="exito.length > 0">{{exito}}</p>
+  <p class="error" id="error" *ngIf="error.length > 0">{{error}}</p>
+  <p class="exito" id="exito" *ngIf="exito.length > 0">{{exito}}</p>
 </div>
+
+<br>
 
 <div>
   <table style="width:80% ;" *ngIf="usuarios.length > 0">

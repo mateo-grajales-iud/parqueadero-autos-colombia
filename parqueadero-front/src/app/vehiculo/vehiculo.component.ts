@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { UsuarioService } from '../servicios/usuario.service';
 import { VehiculoService } from '../servicios/vehiculo.service';
 
@@ -11,16 +11,18 @@ import { VehiculoService } from '../servicios/vehiculo.service';
 export class VehiculoComponent implements OnInit {
 
   crearVehiculoForm = this.formBuilder.group({
-    marca : "",
-    modelo : "",
-    color : "",
-    placa : "",
-    tipo : "",
-    dueno : ""
+    marca : ["", Validators.required],
+    modelo : ["", Validators.required],
+    color : ["", Validators.required],
+    placa : ["", Validators.required],
+    tipo : ["", Validators.required],
+    dueno : ["", Validators.required]
   })
 
   errorCrear : String = "";
   exitoCrear : String = "";
+
+  factura = "";
 
   tiposVehiculo : any = [];
   usuarios : any = [];

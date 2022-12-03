@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 import { RegistroService } from '../servicios/registro.service';
+import { VehiculoService } from '../servicios/vehiculo.service';
 
 @Component({
   selector: 'app-registro',
@@ -10,46 +11,71 @@ import { RegistroService } from '../servicios/registro.service';
 })
 export class RegistroComponent implements OnInit {
 
+  error = "";
+  exito = "";
+
+  vehiculos : any = [];
+
   registroForm= this.formBuilder.group(
     {
-      placa: '',
-      fecha: '',
-      hora: ''
+      placa: ['', Validators.required],
+      fecha: ['', Validators.required],
+      hora: ['', Validators.required]
      })
 
-  constructor(private registroService: RegistroService, private formBuilder: FormBuilder) { }
+  constructor(private registroService: RegistroService, private vehiculoService : VehiculoService, private formBuilder: FormBuilder) { 
+    this.getVehiculos();
+  }
+
+  getVehiculos(){
+    this.vehiculoService.obtenerVehiculos()
+      .subscribe(res => {
+        this.vehiculos = res;
+      });
+  }
 
   onSubmit(boton:string): void {
+    console.log("click on entrada");
     var data= {
-      placa: '', entrada: '', salida: ''
+      placa: '', fecha: '', tipo: ''
     };
 
     data.placa = this.registroForm.value.placa ?? '';
     data.placa = data.placa.toUpperCase();
+    data.fecha= this.registroForm.value.fecha ?? '';
+    data.fecha += ' ' + (this.registroForm.value.hora ?? '') + ':00';
 
     if (boton=='ENTRADA'){
-      data.entrada = this.registroForm.value.fecha ?? '';
-      data.entrada += ' ' + (this.registroForm.value.hora ?? '') + ':00';
+      data.tipo = '1';
       this.registroService.registrarEntrada(data)
         .subscribe({
           next: (res) => {
             console.log(res);
+            this.registroForm.reset();
+            this.exito = "Se ha creado el registro con exito";
+            this.error = "";            
           },
           error: (e) => {
             console.error(e);
+            this.exito = "";
+            this.error = "Ha ocurrido un error";
           }
         })
     }
     else {
-      data.salida= this.registroForm.value.fecha ?? '';
-      data.salida += ' ' + (this.registroForm.value.hora ?? '') + ':00';
+      data.tipo = '2';
       this.registroService.registrarSalida(data)
         .subscribe({
           next: (res) => {
             console.log(res);
+            this.registroForm.reset();
+            this.exito = "Se ha creado el registro con exito";
+            this.error = ""; 
           },
           error: (e) => {
             console.error(e);
+            this.exito = "";
+            this.error = "Ha ocurrido un error";
           }
         })
     }

@@ -2,28 +2,41 @@
   <form [formGroup]="celdaForm" (ngSubmit)="onSubmit()">
     <label>ID de la celda</label>
     <input type="number" min="1" id="id" formControlName="id" placeholder="ID" required>
-    <button type="submit" id="crearUsuario">Crear celda</button>
+    <div class="error" *ngIf="celdaForm.controls['id'].invalid">
+      ID invalido
+    </div>
+    <button type="submit" id="crearUsuario" [disabled]="!celdaForm.valid">Crear celda</button>
   </form>
-  <p id="error" *ngIf="errorCrear.length > 0">{{errorCrear}}</p>
-  <p id="exito" *ngIf="exitoCrear.length > 0">{{exitoCrear}}</p>
+  <p class="error" id="error" *ngIf="errorCrear.length > 0">{{errorCrear}}</p>
+  <p class="exito" id="exito" *ngIf="exitoCrear.length > 0">{{exitoCrear}}</p>
 </div>
 
+<br>
+
 <div>
-    <form [formGroup]="asociarForm" (ngSubmit)="asociar()">
-      <label>ID de la celda</label>
-      <select id="id" formControlName="id" required>
-        <option *ngFor="let celda of celdas" [value]="celda.id">{{ celda.id  }}</option>
-      </select>
-      <select id="vehiculo" formControlName="vehiculo" required>
-        <option value="" disabled selected hidden>Vehículo</option>
-        <option></option>
-        <option *ngFor="let vehiculo of vehiculos" [value]="vehiculo.placa">{{ vehiculo.placa  }}</option>
-      </select>
-      <button type="submit" id="crearUsuario">Asociar</button>
-    </form>
-    <p id="errorAsociar" *ngIf="errorAsociar.length > 0">{{errorAsociar}}</p>
-    <p id="exitoAsociar" *ngIf="exitoAsociar.length > 0">{{exitoAsociar}}</p>
-  </div>
+  <form [formGroup]="asociarForm" (ngSubmit)="asociar()">
+    <label>ID de la celda</label>
+    <select id="id" formControlName="id" required>
+      <option *ngFor="let celda of celdas" [value]="celda.id">{{ celda.id  }}</option>
+    </select>
+    <div class="error" *ngIf="asociarForm.controls['id'].invalid">
+      ID invalido
+    </div>
+    <select id="vehiculo" formControlName="vehiculo" required>
+      <option value="" disabled selected hidden>Vehículo</option>
+      <option value=" "></option>
+      <option *ngFor="let vehiculo of vehiculos" [value]="vehiculo.placa">{{ vehiculo.placa  }}</option>
+    </select>
+    <div class="error" *ngIf="asociarForm.controls['vehiculo'].invalid">
+      Vehículo invalido
+    </div>
+    <button type="submit" id="crearUsuario" [disabled]="!asociarForm.valid">Asociar</button>
+  </form>
+  <p class="error" id="errorAsociar" *ngIf="errorAsociar.length > 0">{{errorAsociar}}</p>
+  <p class="exito" id="exitoAsociar" *ngIf="exitoAsociar.length > 0">{{exitoAsociar}}</p>
+</div>
+
+<br>
 
 <div>
   <table style="width:80% ;" *ngIf="celdas.length > 0">
@@ -32,9 +45,9 @@
       <th>VEHICULO</th>
     </tr>
 
-      <tr *ngFor="let celda of celdas">        
-        <td>{{ celda.id }} </td>
-        <td>{{ celda.vehiculo }}</td>
-      </tr>
+    <tr *ngFor="let celda of celdas">
+      <td>{{ celda.id }} </td>
+      <td>{{ celda.vehiculo }}</td>
+    </tr>
   </table>
 </div>

@@ -11,6 +11,8 @@ public interface CeldasRepositorio extends CrudRepository<Celda, Long>{
 	
 	public List<Celda> findAll();
 	
+	public List<Celda> findAllByVehiculo(String id);
+	
 	public Optional<Celda> findByVehiculo(String vehiculo);
 
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RegistroService } from '../servicios/registro.service';
-import { FormBuilder, FormGroup} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { Timestamp, timestamp } from 'rxjs';
 
 @Component({
@@ -13,7 +13,7 @@ export class HistorialComponent implements OnInit {
   registros: any = [];
 
   buscarForm = this.formBuilder.group({
-    fecha: ''
+    fecha: ['', Validators.required]
   })
 
   constructor(private registroService: RegistroService, private formBuilder: FormBuilder) { }

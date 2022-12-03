@@ -1,17 +1,22 @@
 <form [formGroup]="buscarForm" (ngSubmit)="onSubmit()">
     <input id='fecha' formControlName='fecha' type="date">
-    <button type="submit">Consultar</button>
+    <div class="error" *ngIf="buscarForm.controls['fecha'].invalid">
+        Se requiere la fecha
+    </div>
+    <button type="submit" [disabled]="!buscarForm.valid">Consultar</button>
 </form>
+
+<br>
 
 <table>
     <tr>
         <th>PLACA</th>
-        <th>ENTRADA</th>
-        <th>SALIDA</th>
+        <th>FECHA</th>
+        <th>TIPO</th>
     </tr>
     <tr *ngFor="let registro of registros">
         <td>{{ registro.placa }} </td>
-        <td>{{ registro.entrada }}</td>
-        <td>{{ registro.salida }}</td>
+        <td>{{ registro.fecha }}</td>
+        <td>{{ (registro.tipo == 1? "ENTRADA" : (registro.tipo == 2? "SALIDA" : "DESCONOCIDO")) }}</td>
     </tr>
 </table>

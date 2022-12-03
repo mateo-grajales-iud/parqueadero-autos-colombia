@@ -16,6 +16,7 @@ import co.edu.iudigital.ingenieriadesoftware.parqueadero.modelos.Celda;
 import co.edu.iudigital.ingenieriadesoftware.parqueadero.modelos.Vehiculo;
 import co.edu.iudigital.ingenieriadesoftware.parqueadero.repositorios.CeldasRepositorio;
 import co.edu.iudigital.ingenieriadesoftware.parqueadero.repositorios.VehiculoRepositorio;
+import co.edu.iudigital.ingenieriadesoftware.parqueadero.vehiculo.VehiculoComponent;
 
 @RestController
 @RequestMapping("api/celda")
@@ -26,6 +27,9 @@ public class CeldaController {
 
 	@Autowired
 	private VehiculoRepositorio vr;
+
+	@Autowired
+	private CeldaComponent cc;
 
 	@GetMapping("todasCeldas")
 	public List<Celda> getCeldas() {
@@ -64,31 +68,35 @@ public class CeldaController {
 		Optional<Celda> c2 = cr.findById(c.getId());
 		if (c2.isEmpty()) {
 			return new ResponseEntity<String>("{ \"mensaje\" : \"La celda no existe\" }", HttpStatus.BAD_REQUEST);
-		}
-		if (!c.getVehiculo().isBlank()) {
-			Optional<Vehiculo> v2 = vr.findById(c.getVehiculo());
-			if (v2.isEmpty()) {
-				return new ResponseEntity<String>("{ \"mensaje\" : \"El vehiculo no existe\" }",
-						HttpStatus.BAD_REQUEST);
-			}
-		}
-		try {
+		} else {
 			if (!c.getVehiculo().isBlank()) {
-				c2 = cr.findByVehiculo(c.getVehiculo());
-				if (c2.isPresent()) {
-					Celda cAnterior = c2.get();
-					cAnterior.setPlaca(null);
-					cr.save(cAnterior);
+				Optional<Vehiculo> v2 = vr.findById(c.getVehiculo());
+				if (v2.isEmpty()) {
+					return new ResponseEntity<String>("{ \"mensaje\" : \"El vehiculo no existe\" }",
+							HttpStatus.BAD_REQUEST);
 				}
 			}
-			if (c2.isPresent() && c2.get().getId() == c.getId()) {
-				c2 = null;
+			try {
+				if (!c.getVehiculo().isBlank()) {
+					c2 = cr.findByVehiculo(c.getVehiculo());
+					if (c2.isPresent()) {
+						Celda cAnterior = c2.get();
+						cAnterior.setVehiculo(null);
+						cr.save(cAnterior);
+					}
+				}
+				if (c2.isPresent() && c2.get().getId() == c.getId()) {
+					c2 = null;
+				}
+				if (!c.getVehiculo().isBlank()) {
+					cc.validarPrimerAsociacion(c);
+				}
+				cr.save(c);
+				return new ResponseEntity<String>("{ \"mensaje\" : \"exito\" }", HttpStatus.OK);
+			} catch (Exception e) {
+				return new ResponseEntity<String>("{ \"mensaje\" : \"" + e.getMessage() + "\" }",
+						HttpStatus.INTERNAL_SERVER_ERROR);
 			}
-			cr.save(c);
-			return new ResponseEntity<String>("{ \"mensaje\" : \"exito\" }", HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<String>("{ \"mensaje\" : \"" + e.getMessage() + "\" }",
-					HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 

@@ -5,6 +5,7 @@ import { HistorialComponent } from './historial/historial.component';
 import { UsuarioComponent } from './usuario/usuario.component';
 import { VehiculoComponent } from './vehiculo/vehiculo.component';
 import { CeldaComponent } from './celda/celda.component';
+import { PagosComponent } from './pagos/pagos.component';
 
 const routes: Routes = [
   {path: 'registro', component: RegistroComponent},
@@ -12,6 +13,7 @@ const routes: Routes = [
   {path: 'usuario', component: UsuarioComponent},
   {path: 'vehiculo', component: VehiculoComponent},
   {path: 'celda', component: CeldaComponent},
+  {path: 'pagos', component: PagosComponent},
 
   {path: '**', redirectTo: '/registro', pathMatch: 'full'}
 ];
