@@ -6,7 +6,7 @@
 
 <div>
     <form [formGroup]="pagarForm" (ngSubmit)="pagar()">
-      <label>ID de la celda</label>
+      <label>ID del pago</label>
       <select id="id" formControlName="id" required>
         <option *ngFor="let pago of pagos" [value]="pago.id">{{ pago.id }}</option>
       </select>

@@ -40,7 +40,7 @@ public class CeldaController {
 	public ResponseEntity<String> crearCelda(@RequestBody Celda c) {
 		Optional<Celda> c2 = cr.findById(c.getId());
 		if (c2.isEmpty()) {
-			if (!c.getVehiculo().isBlank()) {
+			if (c.getVehiculo() != null && !c.getVehiculo().isBlank()) {
 				c2 = cr.findByVehiculo(c.getVehiculo());
 				if (c2.isPresent()) {
 					return new ResponseEntity<String>("{ \"mensaje\" : \"El vehiculo ya esta asociado a una celda\" }",
